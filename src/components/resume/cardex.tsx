@@ -1,19 +1,50 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-export function ExpandableCard() {
-    const [isExpanded, setIsExpanded] = useState(false);
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Card, CardAction, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-    // 控制背景滚动
+import MarkdownRenderer from "@/components/resume/markdown";
+
+// max card : card      ->  fixed z-50 inset-1/9 invisible
+// max card : content   ->  h-full w-full flex flex-col
+
+// father div ->       <div className="flex flex-wrap justify-center items-center m-10">
+
+interface ResumeCardProps {
+    title: string;
+    date: string;
+    content: string;
+    exContent: string;
+    expanded: boolean;
+    tags: string[];
+}
+
+const expandedCardName = "fixed z-50 inset-1/20 shadow-md border"
+const collapsedCardName = "inset-1/10 hover:bg-card/80 transition-all \
+    shadow-md hover:shadow-xl hover:scale-105 border transition-all duration-100"
+
+export function ResumeCard({
+    className,
+    title,
+    date,
+    content = "",
+    exContent = "",
+    expanded = true,
+    tags = [],
+    ...props
+}: React.ComponentProps<"div"> & ResumeCardProps) {
+    // if exContent is empty, the exContent = content
+    if (exContent === "") {
+        exContent = content;
+    }
+
+    const [isExpanded, setIsExpanded] = useState(expanded);
+
     useEffect(() => {
-        if (isExpanded) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
+        document.body.style.overflow = isExpanded ? "hidden" : "unset";
 
         return () => {
             document.body.style.overflow = "unset";
@@ -21,53 +52,43 @@ export function ExpandableCard() {
     }, [isExpanded]);
 
     return (
-        <div className="flex flex-wrap justify-center items-center my-4">
+        <div className={cn("flex flex-wrap justify-center items-center", className)}>
             <Card
                 onClick={() => setIsExpanded(!isExpanded)}
-                className={cn(
-                    "transition-all duration-300 ease-in-out",
-                    isExpanded
-                        ? "fixed inset-4 z-50 "
-                        : "w-3/4 bg-card/70 hover:bg-card/80 transition-all shadow-md hover:shadow-xl hover:scale-105 border transition-all duration-100"
-                )}
-            >
-                <CardContent
-                    className={cn("h-full", isExpanded ? "overflow-y-auto px-10" : "")}
-                >
-                    <div className="flex justify-between">
-                        <text className="text-1xl font-bold">项目名称</text>
-                        <text className="text-1xl font-bold justify-end">1992.12.12</text>
-                    </div>
-                    <Separator className="my-2" />
+                className={cn(isExpanded ? expandedCardName : collapsedCardName)}>
+                <CardContent className={cn(isExpanded ? "h-full w-full" : "")}>
+                    <div className="h-full w-full flex flex-col">
 
-                    <p className="text-gray-600 mb-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-                        temporibus officiis culpa! Consectetur fugiat molestiae perferendis
-                        numquam debitis labore quaerat, quos eos amet iusto nisi distinctio
-                        itaque commodi id ipsum?
-                    </p>
+                        <div className="flex justify-between">
+                            <text className="text-1xl font-bold">{title}</text>
+                            <text className="text-1xl font-bold justify-end">{date}</text>
+                        </div>
 
-                    {/* 展开时显示的额外内容 */}
-                    {isExpanded && (
-                        <>
-                            {/* 可以添加更多内容 */}
-                            {Array.from({ length: 100 }).map((_, i) => (
-                                <p key={i} className="text-gray-600 mb-4">
-                                    额外内容 {i + 1}: Lorem ipsum, dolor sit amet consectetur
-                                    adipisicing elit...
-                                </p>
+                        <Separator className="my-2" />
+
+                        {isExpanded ? (
+                            <ScrollArea className="flex-grow flex items-center justify-center h-1/3 m-3">
+                                <MarkdownRenderer content={exContent} />
+                            </ScrollArea>
+                        ) : (
+                            <MarkdownRenderer content={content} />
+                        )}
+
+
+                        <Separator className="my-2" />
+
+                        <div className="h-8 flex items-center justify-end">
+                            {tags.map((tag) => (
+                                <Badge variant="destructive" className="mx-1 py-1" key={tag}>
+                                    {tag}
+                                </Badge>
                             ))}
-                        </>
-                    )}
-
-                    <div className="flex justify-end">
-                        <Badge variant="outline" className="bg-red-100 px-5">
-                            没做完xx
-                        </Badge>
+                        </div>
                     </div>
                 </CardContent>
-            </Card>
-            {/* 背景遮罩 */}
+            </Card >
+
+            {/* background */}
             {isExpanded && (
                 <div
                     className="fixed inset-0 bg-black/50 z-40"
@@ -75,7 +96,5 @@ export function ExpandableCard() {
                 />
             )}
         </div>
-    );
+    )
 }
-
-export default ExpandableCard;

@@ -2,11 +2,11 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { nord } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function MarkdownRenderer({ content }: { content: string }) {
   return (
-    <div className="prose dark:prose-invert max-w-none">
+    <div className="prose">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -25,7 +25,7 @@ function MarkdownRenderer({ content }: { content: string }) {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
               <SyntaxHighlighter
-                style={vscDarkPlus}
+                style={nord}
                 language={match[1]}
                 PreTag="div"
                 {...props}
