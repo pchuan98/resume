@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import "./index.css";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function App() {
   return (
@@ -21,18 +22,21 @@ export function App() {
           <CardContent className="h-full w-full">
             <div className="h-full w-full flex flex-col ">
               <div className="h-10 flex justify-between">
-                <text className="text-1xl font-bold">项目名称</text>
+                <text className="text-1xl font-bold">
+                  基于显微镜成像的大图拼接算法设计与优化
+                </text>
                 <text className="text-1xl font-bold justify-end">
                   1992.12.12
                 </text>
               </div>
               <Separator />
-              <div className="flex-grow flex items-center justify-center">
-                <div className="absolute inset-y-20 inset-x-5 overflow-auto">
+
+              <ScrollArea className="flex-grow flex items-center justify-center h-1/3 m-3">
+                <div>
                   ({" "}
                   <>
                     {/* 可以添加更多内容 */}
-                    {Array.from({ length: 10 }).map((_, i) => (
+                    {Array.from({ length: 50 }).map((_, i) => (
                       <p key={i} className="text-gray-600 mb-4">
                         额外内容 {i + 1}: Lorem ipsum, dolor sit amet
                         consectetur adipisicing elit...
@@ -41,10 +45,15 @@ export function App() {
                   </>
                   )
                 </div>
-              </div>
-
-              <div className="bg-red-500 h-10 flex items-center justify-center">
-                固定高度的第三个容器
+              </ScrollArea>
+              <Separator className="my-2" />
+              <div className="h-8 flex items-center justify-end">
+                <Badge variant="outline" className="px-5">
+                  Python
+                </Badge>
+                <Badge variant="outline" className="px-5 mx-1">
+                  C#
+                </Badge>
               </div>
             </div>
           </CardContent>
