@@ -24,7 +24,7 @@ function ResumeCardContent({
 }: React.ComponentProps<typeof CardContent> & ResumeCardProps) {
   return (
     <CardContent className="flex flex-col h-full w-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-x-10">
         <div className="text-1xl font-bold">{title}</div>
         <div className="text-1xl font-bold">{date}</div>
       </div>
@@ -39,9 +39,9 @@ function ResumeCardContent({
 
       <Separator className="my-2" />
 
-      <div className="h-8 flex items-center justify-end">
+      <div className="flex h-8 items-center justify-end gap-x-2">
         {tags.map((tag) => (
-          <Badge variant="destructive" className="mx-1 py-1" key={tag}>
+          <Badge variant="destructive" className="h-6" key={tag}>
             {tag}
           </Badge>
         ))}
