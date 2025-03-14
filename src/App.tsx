@@ -1,5 +1,5 @@
 import "./index.css";
-import ExpandableCard, { ResumeCard } from "@/components/resume/cardex";
+import { ResumeCard } from "@/components/resume/cardex";
 
 const markdownContent = `
 - 使用 **OpenCV**，结合 **C#/C++** 进行算法定制与优化，解决拼接过程中的性能瓶颈与精度问题。
@@ -13,7 +13,7 @@ const markdownContent = `
 import cv2
 import numpy as np
 def stitch_images(images):
-    stitcher = cv2.Stitcher_create()
+    stitcher = cv2dddddddddddddddddddddddddddddddd.Stitcher_create()
     (status, stitched) = stitcher.stitch(images)
     if status == cv2.STITCHER_OK:
         return stitched
@@ -39,7 +39,7 @@ export function App() {
   return (
     <div className="w-lvw md:w-lvw flex flex-col justify-center gap-y-1 md:gap-y-5 p-2 md:p-10">
       <ResumeCard
-        title="测试标题"
+        title="1"
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent1}
@@ -48,7 +48,7 @@ export function App() {
       />
 
       <ResumeCard
-        title="测试标题"
+        title="2"
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent}
@@ -57,16 +57,16 @@ export function App() {
       />
 
       <ResumeCard
-        title="测试标题"
+        title="3"
         date="测试日期"
         content={markdownContent}
-        exContent={markdownContent}
+        exContent={markdownContent1}
         expanded={false}
         tags={["python", "demo"]}
       />
 
       <ResumeCard
-        title="测试标题"
+        title="4"
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent}

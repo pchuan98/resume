@@ -4,17 +4,10 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
-function MarkdownRenderer({
-  className = null,
-  content,
-}: {
-  className?: string;
-  content: string;
-}) {
+function MarkdownRenderer({ content }: { content: string }) {
   return (
-    <div className={cn(className, "prose")}>
+    <div className={cn("prose")}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -36,16 +29,17 @@ function MarkdownRenderer({
                 style={nord}
                 language={match[1]}
                 PreTag="div"
+                wrapLines={true}
+                wrapLongLines={true}
+                showLineNumbers={true}
                 {...props}
               >
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
             ) : (
-              <ScrollArea>
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              </ScrollArea>
+              <code className={cn(className, "text-sm break-all")} {...props}>
+                {children}
+              </code>
             );
           },
         }}

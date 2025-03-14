@@ -1,17 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 import MarkdownRenderer from "@/components/resume/markdown";
-
-// max card : card      ->  fixed z-50 inset-1/9 invisible
-// max card : content   ->  h-full w-full flex flex-col
-
-// father div ->       <div className="flex flex-wrap justify-center items-center m-10">
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface ResumeCardProps {
   title: string;
@@ -22,10 +17,12 @@ interface ResumeCardProps {
   tags: string[];
 }
 
-const expandedCardName = "inset-1/20 fixed z-50 shadow-md border";
+const expandedCardName =
+  "fixed z-50 shadow-md border inset-1/35 sm:inset-1/30 md:inset-1/25 lg:inset-1/20";
 const collapsedCardName =
   "w-full hover:bg-card/80 transition-all \
     shadow-md hover:shadow-xl hover:scale-101 border transition-all duration-200";
+
 export function ResumeCard({
   className,
   title,
@@ -36,7 +33,6 @@ export function ResumeCard({
   tags = [],
   ...props
 }: React.ComponentProps<"div"> & ResumeCardProps) {
-  // if exContent is empty, the exContent = content
   if (exContent === "") {
     exContent = content;
   }
@@ -45,13 +41,11 @@ export function ResumeCard({
   const [scrollPosition, setScrollPosition] = useState(0);
   const cardRef = useRef(null);
 
-  // Toggle expand/collapse with scroll position maintenance
   const handleToggleExpand = (newState: boolean) => {
+    // fix: expand卡片之后scroll坐标会上移部分
     if (newState) {
-      // Save current scroll position when expanding
       setScrollPosition(window.scrollY);
     } else {
-      // Use setTimeout to ensure DOM updates before scrolling
       setTimeout(() => {
         window.scrollTo({
           top: scrollPosition,
@@ -103,22 +97,12 @@ export function ResumeCard({
 
           <Separator className="my-2" />
 
-          <div className="flex-grow flex items-center justify-center h-1/3">
-            {isExpanded ? (
-              <ScrollArea className="flex w-full h-full m-3">
-                <MarkdownRenderer
-                  className={cn("w-2/3", noSelectClass)}
-                  content={content}
-                />
+          <div className="flex-grow flex flex-col min-h-0">
+            <div className="flex flex-wrap overflow-auto">
+              <ScrollArea className="w-full sm:m-3 m-1 overflow-auto">
+                <MarkdownRenderer content={isExpanded ? exContent : content} />
               </ScrollArea>
-            ) : (
-              <div className="flex flex-col w-full h-full m-3">
-                <MarkdownRenderer
-                  className={cn("w-full", noSelectClass)}
-                  content={content}
-                />
-              </div>
-            )}
+            </div>
           </div>
 
           <Separator className="my-2" />
