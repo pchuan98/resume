@@ -43,7 +43,6 @@ export function App() {
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent1}
-        expanded={false}
         tags={["python", "demo"]}
       />
 
@@ -52,7 +51,6 @@ export function App() {
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent}
-        expanded={false}
         tags={["python", "demo"]}
       />
 
@@ -61,7 +59,6 @@ export function App() {
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent1}
-        expanded={false}
         tags={["python", "demo"]}
       />
 
@@ -69,8 +66,6 @@ export function App() {
         title="4"
         date="测试日期"
         content={markdownContent}
-        exContent={markdownContent}
-        expanded={false}
         tags={["python", "demo"]}
       />
     </div>
