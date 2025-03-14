@@ -7,12 +7,13 @@
 
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
-import { App } from "./App";
+import { Cards } from "./cards";
 
 const elem = document.getElementById("root")!;
+
 const app = (
   <StrictMode>
-    <App />
+    <Cards />
   </StrictMode>
 );
 
