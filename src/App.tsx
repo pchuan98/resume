@@ -35,64 +35,32 @@ ${markdownContent}
 ${markdownContent}
 `;
 
-const HomePage = () => {
-  const cards = [
-    {
-      id: 1,
-      title: "自然风光",
-      content:
-        "这张卡片展示了美丽的自然风光。点击卡片可以查看更多详细信息和更大的图片。自然风光包括山脉、海洋、森林和其他壮观的自然场景。",
-      image: "/api/placeholder/800/400",
-    },
-    {
-      id: 2,
-      title: "城市景观",
-      content:
-        "这张卡片展示了现代城市景观。点击卡片可以查看更多详细信息和更大的图片。城市景观包括摩天大楼、街道、公园和其他城市元素。",
-      image: "/api/placeholder/800/400",
-    },
-    {
-      id: 3,
-      title: "太空探索",
-      content:
-        "这张卡片展示了太空探索的内容。点击卡片可以查看更多详细信息和更大的图片。太空探索包括行星、星系、宇宙飞船和其他太空元素。",
-      image: "/api/placeholder/800/400",
-    },
-  ];
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">卡片展开效果演示</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card) => (
-          <ExpandableCard
-            key={card.id}
-            title={card.title}
-            content={card.content}
-            image={card.image}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
 export function App() {
   return (
     <div className="w-lvw md:w-lvw flex flex-col justify-center gap-y-1 md:gap-y-5 p-2 md:p-10">
-      <HomePage />
-      <HomePage />
-      <HomePage />
-      <HomePage />
-      <HomePage />
-
-      <HomePage />
-
       <ResumeCard
         title="测试标题"
         date="测试日期"
         content={markdownContent}
         exContent={markdownContent1}
+        expanded={false}
+        tags={["python", "demo"]}
+      />
+
+      <ResumeCard
+        title="测试标题"
+        date="测试日期"
+        content={markdownContent}
+        exContent={markdownContent}
+        expanded={false}
+        tags={["python", "demo"]}
+      />
+
+      <ResumeCard
+        title="测试标题"
+        date="测试日期"
+        content={markdownContent}
+        exContent={markdownContent}
         expanded={false}
         tags={["python", "demo"]}
       />
